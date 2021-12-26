@@ -65,3 +65,16 @@ df["gender"] = df.jurisdiction.str.contains("ad")
 df.loc[100, 'jurisdiction'] = "Alabama"
 # check entry
 df.loc[100, :]
+
+###### Data Read Operation
+
+# group by column: Returns a series
+df.groupby(by="week_of_allocations")["_2nd_dose_allocations"].sum()
+
+# sort rows by column:
+df.sort_values(by="_2nd_dose_allocations", ascending=False)
+
+# example: group by "jurisdiction" and sum column: "_2nd_dose_allocations"
+# Finds the jurisdiction with highest vaccination with 2nd shot
+group_series = df.groupby(by="jurisdiction")["_2nd_dose_allocations"].sum()
+group_series.sort_values(ascending=False)
