@@ -52,10 +52,16 @@ df.drop_duplicates(subset=["jurisdiction"], inplace=True, keep="last")
 ####### INSERT
 
 # insert rows into Dataframe:
-df.append()
 
-# update rows of a Dataframe:
+# At the end:
+df.append(df_new, ignore_index=True)
 
 # append columns to a Dataframe:
+df["gender"] = df.jurisdiction.str.contains("ad")
 
-# append rows to a Dataframe:
+####### UPDATE
+
+# update entry in row 100 & column "jurisdiction"
+df.loc[100, 'jurisdiction'] = "Alabama"
+# check entry
+df.loc[100, :]
