@@ -78,3 +78,34 @@ df.sort_values(by="_2nd_dose_allocations", ascending=False)
 # Finds the jurisdiction with highest vaccination with 2nd shot
 group_series = df.groupby(by="jurisdiction")["_2nd_dose_allocations"].sum()
 group_series.sort_values(ascending=False)
+
+###### Dataframe conversion
+
+# Convert to dictionary of columns containing rows as dictionary with Indices as Keys
+df_dict = df.head(2).to_dict("dict")
+# {'column_1': {'Index_1': 'row_1", ... }, 'column_2': {'Index_1': 'row_1', ...}}
+# {'_1st_dose_allocations': {0: 54360, 1: 21420},
+#  '_2nd_dose_allocations': {0: 54360, 1: 21420},
+#  'jurisdiction': {0: 'Connecticut', 1: 'Maine'},
+#  'week_of_allocations': {0: '2021-06-21T00:00:00.000',
+#   1: '2021-06-21T00:00:00.000'}}
+
+# Convert to dictionary of columns with rows as lists:
+df_dict_2 = df.head(2).to_dict("list")
+# {'column_1': ['row_1", ... ], 'column_2': ['row_1', ...]}
+# {'_1st_dose_allocations': [54360, 21420],
+#  '_2nd_dose_allocations': [54360, 21420],
+#  'jurisdiction': ['Connecticut', 'Maine'],
+#  'week_of_allocations': ['2021-06-21T00:00:00.000', '2021-06-21T00:00:00.000']}
+
+# Convert to list of dictionaries with each list item representing a row:
+df_list = df.head(2).to_dict("records")
+# [{'column_1': ..., 'column_2': ...}, {'column_1': ..., 'column_2': ...}]
+# [{'_1st_dose_allocations': 54360,
+#   '_2nd_dose_allocations': 54360,
+#   'jurisdiction': 'Connecticut',
+#   'week_of_allocations': '2021-06-21T00:00:00.000'},
+#  {'_1st_dose_allocations': 21420,
+#   '_2nd_dose_allocations': 21420,
+#   'jurisdiction': 'Maine',
+#   'week_of_allocations': '2021-06-21T00:00:00.000'}]
