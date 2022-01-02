@@ -136,3 +136,23 @@ df["timestamp"] = pd.to_datetime(df["timestamp"], format='%Y-%m-%d %H:%M:%S')
 # %S: Seconds
 # %f: Microseconds
 # https://stackabuse.com/converting-strings-to-datetime-in-python/
+
+# set index on column for grouping data by timestamp:
+# transforms datetime-column to DatetimeIndex
+df.set_index("timestamp")
+# Need to reset index after using set_index
+df.reset_index()
+
+# group by timestamp
+df_grouped = df.groupby(pd.Grouper(key="timestamp", freq="5Min")).volume.sum()
+
+# Working with datetimes: https://pandas.pydata.org/docs/getting_started/intro_tutorials/09_timeseries.html
+# Remember:
+# (1) Valid date strings can be converted to datetime objects using to_datetime function or as part of read functions.
+# (2) Datetime objects in pandas support calculations, logical operations and convenient date-related properties using the dt accessor.
+# (3) A DatetimeIndex contains these date-related properties and supports convenient slicing.
+# (4) Resample is a powerful method to change the frequency of a time series.
+
+# Cast column to another datatype
+# Example: str -> int
+df["volume"] = df["volume"].astype(int)
