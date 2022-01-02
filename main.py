@@ -109,3 +109,17 @@ df_list = df.head(2).to_dict("records")
 #   '_2nd_dose_allocations': 21420,
 #   'jurisdiction': 'Maine',
 #   'week_of_allocations': '2021-06-21T00:00:00.000'}]
+
+#### COLUMN & INDEX Manipulations
+
+# Create a new column from Index in a DatFrame
+# Index         Col1    Col2
+# 2021-12-31     1     "test"
+# 2022-01-01    99      "me"
+df.reset_index(inplace=True)
+# Index     index          Col1    Col2
+# 1         2021-12-31     1     "test"
+# 2         2022-01-01    99      "me"
+
+# Rename columns in a DataFrame
+df.rename(columns={"index": "time"}, inplace=True)
