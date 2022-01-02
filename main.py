@@ -113,13 +113,26 @@ df_list = df.head(2).to_dict("records")
 #### COLUMN & INDEX Manipulations
 
 # Create a new column from Index in a DatFrame
-# Index         Col1    Col2
-# 2021-12-31     1     "test"
-# 2022-01-01    99      "me"
+# Index                 Col1    Col2
+# 2021-12-31 00:30:00     1     "test"
+# 2022-01-01 00:35:00     22    "me"
 df.reset_index(inplace=True)
-# Index     index          Col1    Col2
-# 1         2021-12-31     1     "test"
-# 2         2022-01-01    99      "me"
+# Index     index                   Col1    Col2
+# 1         2021-12-31 00:30:00       1     "test"
+# 2         2022-01-01 00:35:00      99      "me"
 
 # Rename columns in a DataFrame
-df.rename(columns={"index": "time"}, inplace=True)
+df.rename(columns={"index": "timestamp"}, inplace=True)
+
+# Map values in column to another value:
+# for example: string "2021-12-31 00:30:00" to datetime
+df["timestamp"] = pd.to_datetime(df["timestamp"], format='%Y-%m-%d %H:%M:%S')
+# datetime format patterns:
+# %Y: Year (4 digits)
+# %m: Month
+# %d: Day of month
+# %H: Hour (24 hour)
+# %M: Minutes
+# %S: Seconds
+# %f: Microseconds
+# https://stackabuse.com/converting-strings-to-datetime-in-python/
